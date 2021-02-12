@@ -55,7 +55,7 @@ class ReportProductpPricelistReport(models.AbstractModel):
         date_now=datetime.date.today()
         filter_product = product_ids.filtered(lambda r: (r.date_start == False or r.date_start <= date_now) and (r.date_end == False or r.date_end >= date_now) )
   
-        product_ids=sorted([ x.product_tmpl_id for x in filter_product if x.product_tmpl_id],key = lambda x:(x.categ_id.norder_report,x.name) )
+        product_ids=sorted([ x.product_tmpl_id for x in filter_product if x.product_tmpl_id and x.product_tmpl_id.active==True],key = lambda x:(x.categ_id.norder_report,x.name)  )
         
         line_ids=docids
         docs={}
