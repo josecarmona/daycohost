@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record model="report.paperformat" id="paperformat_report_pricelist">
+
+        <field name="name">paperformat.report.pricelist</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_spacing">40</field>
+        <field name="page_height">220</field>
+        <field name="page_width">340</field>
+
+    </record>
+
+
+    <report
+        id="action_pricelist_report"
+        model="product.pricelist.item"
+        string="Price list (PDF)"
+        report_type="qweb-pdf"
+        paperformat="paperformat_report_pricelist"
+        name="pricelist_report.report_pricelist"
+        file="pricelist_report.report_pricelist"
+    />
+
+    <template id="report_pricelist">
+        <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-size: 15px !important;">
+
+                       <span class="font-weight-bold">Listado de Tarifas vigentes por servicio </span>
+                        <p class="font-weight-bold">Emitido el <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/></p>
+                        
+                        <table class="table table-sm my-5">
+
+                          <thead class="table-primary">
+                            <tr>
+                              <th>Categoria del Producto</th>
+                              <th>Producto</th>
+                              <th>Unidad de Medida</th>
+                              <th>Tarifa</th>
+                              <th>Precio</th>
+                            </tr>
+                          </thead>
+                          
+                          <tbody>
+                          <tr t-foreach="docs" t-as="doc"> 
+                                <td class="table-active" ><span t-field="doc.categ_id.name" /></td>
+                                <td class="table-active"><span t-field="doc.name" /></td>
+                                <td class="table-active"><span t-field="doc.uom_id.name" /></td>
+                                <td class="table-active"></td>
+                                <td class="table-active"></td>
+                                <t t-foreach="get_lines(doc)" t-as="listprice">
+		                            <tr t-foreach="listprice" t-as="l"> 
+		                                <td></td>
+                                        <td></td> 
+                                        <td></td>
+                                        <td><span t-field="l.pricelist_id.name" /></td>
+                                        <td><span t-esc="l.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(l.fixed_price)" /> </td>
+                                
+                                   </tr>
+                                </t>
+                           </tr> 
+                          </tbody>
+                        </table>
+                    </div>
+              
+              
+           </t>
+        </t>
+    </template>
+
+</odoo>
