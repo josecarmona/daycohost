@@ -23,6 +23,7 @@
 
     # always loaded
     'data': [
+        'report/template.xml',
         'report/pricelist_report.xml',
         'views/product_category.xml',
         
