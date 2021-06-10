@@ -82,7 +82,7 @@ class CompanyRif(models.Model):
                 +@             # seguido de @
                 [\w.-]         # dominio: Cualquier caracter alfanumerico mas los signos (.-)
                 +\.            # seguido de .
-                [a-zA-Z]{2,3}  # dominio de alto nivel: 2 a 6 letras en minúsculas o mayúsculas.
+                [a-zA-Z]{2,4}  # dominio de alto nivel: 2 a 6 letras en minúsculas o mayúsculas.
                 \b             # fin de delimitador de palabra
                 """, re.X)     # bandera de compilacion X: habilita la modo verborrágico, el cual permite organizar
                                # el patrón de búsqueda de una forma que sea más sencilla de entender y leer.
