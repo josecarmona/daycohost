@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <form string="Motive">
                     <group>
-                        <field name="reason_id" domain="[('id', 'in', context.get('reason', []))]"/> 
+                        <field name="motive_id" domain="[('id', 'in', context.get('reason', []))]" options="{'no_create': True, 'no_create_edit':True}"/> 
                   
                     </group>
                     <footer>

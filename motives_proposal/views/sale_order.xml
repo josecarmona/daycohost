@@ -7,7 +7,9 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
                <field name="arch" type="xml">
                    <xpath expr="//field[@name='client_order_ref']" position="after">
-					   <field name="reason_id"/>
+					   <field name="motive_type" attrs="{'readonly':[('state','in',['sale','cancel'])]}"/>
+
+					   <field name="motive_id" attrs="{'readonly':[('state','in',['sale','cancel'])]}"/>
 
 
                    </xpath>

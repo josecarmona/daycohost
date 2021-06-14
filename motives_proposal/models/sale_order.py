@@ -3,14 +3,20 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
+TYPE_SELECTION = [
+    ('won', 'Ganada'),
+    ('lost', 'Perdida')
 
+]
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
 
-    reason_id = fields.Many2one('motives.proposal')
+    motive_id = fields.Many2one('motives.proposal')
     
+    motive_type = fields.Selection(string='Type Motive',related='motive_id.type_motive' ,selection=TYPE_SELECTION, store=True)
+
     
 
     def action_confirm(self):
@@ -50,35 +56,4 @@ class SaleOrder(models.Model):
         
 
 
-    # ~ @api.model
-    # ~ def create(self, vals):
-        # ~ self.search_norder_report(vals['norder_report'])
-        # ~ res = super().create(vals)
 
-        # ~ return res
-
-    # ~ def write(self, vals):
-        # ~ self.search_norder_report(vals['norder_report'])
-        # ~ super().write(vals)
-
-        # ~ return True
-    # ~ def search_norder_report(self, norder_report):
-        # ~ domain= [('norder_report', '=', norder_report)]
-        # ~ search=self.env['product.category'].search(domain)
-        # ~ if search:
-            # ~ raise ValidationError('Este número ya está asignado en una categoría!')
-  
-        # ~ return True
-
-    # ~ @api.model
-    # ~ def create(self, vals):
-        # ~ self.search_norder_report(vals['norder_report'])
-        # ~ res = super().create(vals)
-
-        # ~ return res
-
-    # ~ def write(self, vals):
-        # ~ self.search_norder_report(vals['norder_report'])
-        # ~ super().write(vals)
-
-        # ~ return True

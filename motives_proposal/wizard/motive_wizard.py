@@ -15,14 +15,14 @@ class MotiveWizard(models.TransientModel):
     _name = "motive.wizard"
 
 
-    reason_id = fields.Many2one('motives.proposal')
+    motive_id = fields.Many2one('motives.proposal')
     
 
     def create_proposal(self):
         type_motive=self._context.get('type')       
         sale_obj = self.env['sale.order']
-        reason_id = self.reason_id
-        sale_obj.browse(self._context.get('active_id')).write({'reason_id': reason_id})
+        motive_id = self.motive_id
+        sale_obj.browse(self._context.get('active_id')).write({'motive_id': motive_id})
         if type_motive=='cancel':
             sale_obj.browse(self._context.get('active_id')).write({'state': type_motive})
         else:

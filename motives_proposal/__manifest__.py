@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "reasons in crm",
+    'name': "motives in crm",
 
     'summary': """
        Motivos para confirmar o cancelar una oportunidad  """,
