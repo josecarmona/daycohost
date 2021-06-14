@@ -5,10 +5,10 @@ from odoo.exceptions import ValidationError
 
 class MotivesProposal(models.Model):
     _name = "motives.proposal"
-    _description = "Reasons"
+    _description = "Motives"
 
     
-    name = fields.Char('Name',required=True)
+    name = fields.Char('Description',required=True)
     
     type_motive = fields.Selection([('won', 'Won'),
                               ('lost', 'Lost')],
