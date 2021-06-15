@@ -11,7 +11,7 @@ class MotiveWizard(models.TransientModel):
     _name = "motive.wizard"
 
 
-    motive_id = fields.Many2one('motives.proposal')
+    motive_id = fields.Many2one('motives.proposal',required=True)
     
 
     def create_proposal(self):
