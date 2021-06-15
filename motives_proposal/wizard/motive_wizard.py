@@ -1,7 +1,5 @@
 # coding: utf-8
-##############################################################################
 
-# -*- coding: utf-8 -*- 
 
 
 from odoo import fields, models, api, exceptions, _
@@ -9,9 +7,7 @@ from odoo.exceptions import ValidationError
 
 
 class MotiveWizard(models.TransientModel):
-    """
-    Sales book wizard implemented using the osv_memory wizard system
-    """
+
     _name = "motive.wizard"
 
 

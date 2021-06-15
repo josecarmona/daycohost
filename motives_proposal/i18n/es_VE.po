@@ -18,7 +18,7 @@ msgstr ""
 #. module: motives_proposal
 #: model_terms:ir.ui.view,arch_db:motives_proposal.motive_wizard_form
 msgid "Cancel"
-msgstr "Calcelar"
+msgstr "Cancelar"
 
 #. module: motives_proposal
 #: model:ir.model.fields,field_description:motives_proposal.field_motive_wizard__create_uid

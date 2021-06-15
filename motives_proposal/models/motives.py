@@ -13,4 +13,4 @@ class MotivesProposal(models.Model):
     
     type_motive = fields.Selection([('won', 'Won'),
                               ('lost', 'Lost')],
-                             'Type', default='won')
+                             'Type', default='won',required=True)
