@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+      <record model="ir.ui.view" id="order_innherit_form">
+            <field name="name">sale.order.innherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/> 
+               <field name="arch" type="xml">
+                   <xpath expr="//field[@name='client_order_ref']" position="after">
+					  
+              
+             <field name="motive_type"  attrs="{'readonly':[('state','in',['cancel','sale']),('cant_edit','=',False)],'invisible':[('state','=','draft')]}"/>
+
+
+             <field name="motive_id" attrs="{'readonly':[('state','in',['cancel','sale']),('cant_edit','=',False)],'invisible':[('state','=','draft')]}" options="{'no_create_edit': True, 'no_create':True, 'no_open':True}" domain="[('type_motive','=',motive_type)]" />
+
+            <field name="cant_edit" invisible="1" />
+
+                   </xpath>
+  
+            </field>
+        </record>
+
+
+      <record model="ir.ui.view" id="order_innherit_tree">
+            <field name="name">sale.order.innherit.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+               <field name="arch" type="xml">
+                   <xpath expr="//field[@name='user_id']" position="after">
+                  
+
+                   <field name="motive_type"/>
+                   <field name="pricelist_id"/>
+
+
+
+
+                   </xpath>
+  
+            </field>
+        </record>
+
+
+
+
+
+      <record model="ir.ui.view" id="order_innherit_search">
+            <field name="name">sale.order.innherit.search</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+               <field name="arch" type="xml">
+                   <xpath expr="//filter[@name='my_quotation']" position="after">
+                  
+
+                   <filter string="Won" name="won" domain="[('motive_type','=','awon')]"/>
+                   <filter string="Lost" name="lost" domain="[('motive_type','=','lost')]"/>
+
+                  <filter name="by_motive_type" string="Type Motive" context="{'group_by': 'motive_type'}" />
+
+                   </xpath>
+  
+            </field>
+        </record>
+
+    </data>
+</odoo>
