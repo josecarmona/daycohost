@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_web_extension_web_extension,web_extension.web_extension,model_web_extension_web_extension,base.group_user,1,1,1,1
