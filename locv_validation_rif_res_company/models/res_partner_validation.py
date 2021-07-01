@@ -4,31 +4,78 @@
 
 
 
-from odoo import fields, models, api,exceptions
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError, ValidationError
 import re
-from openerp.exceptions import ValidationError
 
 class RespartnerRif(models.Model):
     _inherit = 'res.partner'
 
+    @api.model
+    def create(self, vals):
+        partner = super().create(vals)
+        # Se valida si el partner tiene un padre asociado, entonces
+        # el mismo se considera como un contacto asociado al cliente o proveedor
+        # por lo cual no se aplican la validaciones de RIF y email para clientes y proveedores.
+        if not partner.parent_id:
+            partner.validate_vat_and_email()
+        return partner
+    
     def write(self, vals):
-        res = {}
-        if vals.get('vat'):
-            res = self.validate_rif_er(vals.get('vat', False))
-            if not res:
-                raise exceptions.except_orm(('Advertencia!'), (
-                    'El rif tiene el formato incorrecto. Ej: V-012345678, E-012345678, J-012345678 o G-012345678. Por favor verifique el formato y si posee los 9 digitos como se indica en el Ej. e intente de nuevo'))
-            if not self.validate_rif_duplicate(vals.get('vat', False)):
-                raise exceptions.except_orm(('Advertencia!'),
-                                            (
-                                                u'El cliente o proveedor ya se encuentra registrado con el rif: %s y se encuentra activo') % (
-                                                vals.get('vat', False)))
-        if vals.get('email'):
-            res = self.validate_email_addrs(vals.get('email'), 'email')
-            if not res:
-                raise exceptions.except_orm(('Advertencia!'), (
-                    'El email es incorrecto. Ej: cuenta@dominio.xxx. Por favor intente de nuevo'))
-        res = super(RespartnerRif, self).write(vals)
+        res = super().write(vals)
+        partners = self.filtered(lambda r: not r.parent_id)
+        if partners:
+            partners.validate_vat_and_email()
+        return res
+    
+    def validate_vat_and_email(self):
+        for partner in self:
+            vat = partner.vat or ''
+            email = partner.email or ''
+            if vat:
+                domain = [('vat', '=', vat), ('id', '!=', partner.id), 
+                    '!', ('id', 'child_of', partner.id)]
+                partner_count = self.search_count(domain)
+                if partner_count:
+                    raise UserError('El cliente o proveedor ya se encuentra registrado' 
+                    ' con el rif: %s y se encuentra activo' %vat)
+                
+                if self.validate_rif(vat) is False:
+                    raise UserError('El rif tiene el formato incorrecto. Ej:' 
+                        'V-012345678, E-012345678, J-012345678 o G-012345678. Por favor'
+                        'verifique el formato y si posee los 9 digitos como se indica en' 
+                        'el Ej. e intente de nuevo')
+            
+            if email:
+                if self.validate_email_addrs(email) is False:
+                    raise UserError('El email es incorrecto. Ej: cuenta@dominio.xxx.' 
+                        'Por favor intente de nuevo')
+
+    @api.model
+    def validate_rif(self, field_value):
+        rif_obj = re.compile(r"^[V|E|J|G]+[-][\d]{9}", re.X)
+        if rif_obj.search(field_value.upper()):
+            if len(field_value) == 11:
+                return True
+            else:
+                return False
+        return False
+
+    @api.model 
+    def validate_email_addrs(self, email):
+        res = False
+        mail_obj = re.compile(r"""
+                \b             # comienzo de delimitador de palabra
+                [\w.%+-]       # usuario: Cualquier caracter alfanumerico mas los signos (.%+-)
+                +@             # seguido de @
+                [\w.-]         # dominio: Cualquier caracter alfanumerico mas los signos (.-)
+                +\.            # seguido de .
+                [a-zA-Z0-9]{1,10}    # dominio de alto nivel: 2 a 6 letras en minúsculas o mayúsculas.
+                \b             # fin de delimitador de palabra
+                """, re.X)     # bandera de compilacion X: habilita la modo verborrágico, el cual permite organizar
+                               # el patrón de búsqueda de una forma que sea más sencilla de entender y leer.
+        if mail_obj.search(email):
+            res = True
         return res
 
     @api.constrains('function', 'x_studio_departamento', 'phone', 'mobile', 'x_studio_telfono_2', 'x_studio_movil_2', 'website', 'x_studio_correo_secundario')
@@ -136,68 +183,3 @@ class RespartnerRif(models.Model):
 
             if flag == 1:
                 raise ValidationError(mensaje)
-    @api.model
-    def create(self, vals):
-        res = {}
-        if vals.get('vat'):
-            res = self.validate_rif_er(vals.get('vat'))
-            if not res:
-                raise exceptions.except_orm(('Advertencia!'), (
-                    'El rif tiene el formato incorrecto. Ej: V-012345678, E-012345678, J-012345678 o G-012345678. Por favor verifique el formato y si posee los 9 digitos como se indica en el Ej. e intente de nuevo'))
-            if not self.validate_rif_duplicate(vals.get('vat', False), True):
-                raise exceptions.except_orm(('Advertencia!'),
-                                            (
-                                                u'El cliente o proveedor ya se encuentra registrado con el rif: %s y se encuentra activo') % (
-                                                vals.get('vat', False)))
-        if vals.get('email'):
-            res = self.validate_email_addrs(vals.get('email'), 'email')
-            if not res:
-                raise exceptions.except_orm(('Advertencia!'), (
-                    'El email es incorrecto. Ej: cuenta@dominio.xxx. Por favor intente de nuevo'))
-        res = super(RespartnerRif, self).create(vals)
-        return res
-
-
-    def validate_rif_er(self, field_value):
-        res = {}
-
-        rif_obj = re.compile(r"^[V|E|J|G]+[-][\d]{9}", re.X)
-        if rif_obj.search(field_value.upper()):
-            if len(field_value) == 11:
-                res = {
-                    'vat':field_value
-                }
-            else:
-                res ={}
-        return res
-
-
-    def validate_rif_duplicate(self, valor, create=False):
-            found = True
-            partner = self.search([('vat', '=', valor)])
-            for partner_ids in partner:
-                if create:
-                    if partner_ids and (partner_ids.customer_rank or partner_ids.supplier_rank):
-                        found = False
-                elif partner_ids and (partner_ids.customer_rank or partner_ids.supplier_rank):
-                        found = False
-            return found
-
-    def validate_email_addrs(self, email, field):
-        res = {}
-
-        mail_obj = re.compile(r"""
-                \b             # comienzo de delimitador de palabra
-                [\w.%+-]       # usuario: Cualquier caracter alfanumerico mas los signos (.%+-)
-                +@             # seguido de @
-                [\w.-]         # dominio: Cualquier caracter alfanumerico mas los signos (.-)
-                +\.            # seguido de .
-                [a-zA-Z0-9]{1,10}  # dominio de alto nivel: 2 a 6 letras en minúsculas o mayúsculas.
-                \b             # fin de delimitador de palabra
-                """, re.X)     # bandera de compilacion X: habilita la modo verborrágico, el cual permite organizar
-                               # el patrón de búsqueda de una forma que sea más sencilla de entender y leer.
-        if mail_obj.search(email):
-            res = {
-                field:email
-            }
-        return res

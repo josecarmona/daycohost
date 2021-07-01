@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+
+
+
+   <record id="crm_activity_report_view_search" model="ir.ui.view">
+        <field name="name">crm.activity.report.search_all</field>
+        <field name="model">crm.activity.report</field>
+        <field name="inherit_id" ref="crm.crm_activity_report_view_search"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//filter[@name='won']" position="before">
+        	<filter string="Todas las Actividades" name="all" domain="['|',['active','=',False],['active','=',True]]"/>
+        	</xpath>
+        </field>
+    </record>
+
+    <record id="quick_create_opportunity_form" model="ir.ui.view">
+            <field name="name">crm.lead.form.quick_create_remove</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+            <field name="arch" type="xml">
+               <xpath expr="//field[@name='planned_revenue']" position="attributes">
+        	        <attribute name="invisible">1</attribute>
+        	    </xpath>
+                 <xpath expr="//field[@name='partner_id']" position="attributes">
+        	        <attribute name="domain">[["is_company","=",True]]</attribute>
+        	    </xpath>
+            </field>
+    </record>
+
+  <record id="view_crm_lead2opportunity_partner" model="ir.ui.view">
+            <field name="name">crm.lead2opportunity.partner.form_company</field>
+            <field name="model">crm.lead2opportunity.partner</field>
+            <field name="inherit_id" ref="crm.view_crm_lead2opportunity_partner"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+        	        <attribute name="domain">[["is_company","=",True]]</attribute>
+        	    </xpath>
+            </field>
+    </record>
+
+   
+    </data>
+</odoo>
