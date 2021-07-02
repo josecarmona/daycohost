@@ -6,7 +6,6 @@
     'version': '0.1',
     'depends': ['base', 'sale_crm'],
     'data': [
-        'security/ir.model.access.csv',
         'views/opportunity_id.xml',
     ],
     
