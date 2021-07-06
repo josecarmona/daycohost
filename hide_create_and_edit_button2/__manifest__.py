@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "hide_create_and_edit_button",
+    'name': "hide_create_and_edit_button2",
 
     'summary': """
         Hide creat and edit button in crm opportunity""",
