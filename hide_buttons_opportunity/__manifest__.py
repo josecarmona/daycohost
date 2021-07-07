@@ -6,7 +6,7 @@
 
     'author': "IT Sales",
 
-    'depends': ['base','crm'],
+    'depends': ['base','crm', 'sale'],
 
     'data': [
         'security/security.xml',
