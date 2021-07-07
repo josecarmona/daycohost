@@ -4,8 +4,9 @@
             <field name= "name">sale_view_inherit123_inherit</field>
             <field name= 'model'>sale.order</field>
             <field name= "inherit_id" ref= "sale_crm.sale_view_inherit123"/>
+            <field name="groups_id" eval="[(4,ref('base.group_user'))]"/>
                 <field name= 'arch' type='xml'>
-                    <field name="opportunity_id" groups="base.group_user"/> 
+                    <field name="opportunity_id"/> 
                 </field>
         </record>      
     </data>
