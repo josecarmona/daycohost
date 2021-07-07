@@ -36,6 +36,18 @@
             </xpath>
           </field>
     </record>
+    <record id="view_order_form_inherit_hide_buttons" model="ir.ui.view">
+        <field name= "name">view.order.form.inherit.hide.buttons</field>
+        <field name= "model">sale.order</field>
+        <field name= "inherit_id" ref="sale.view_order_form"/>
+        <field name="groups_id" eval="[(4,ref('hide_buttons_opportunity.group_hide_create_and_edit_button_sale_order'))]"/>
+          <field name= 'arch' type='xml'>
+            <xpath expr= "//form" position="attributes">
+              <attribute name="create">false</attribute>
+              <attribute name="edit">false</attribute>
+            </xpath>
+          </field>
+    </record>
   </data>
 </odoo>
 
