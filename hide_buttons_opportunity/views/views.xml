@@ -48,6 +48,18 @@
             </xpath>
           </field>
     </record>
+    <record id="view_quotation_tree_with_onboarding_inherit_hide" model="ir.ui.view">
+        <field name= "name">view.quotation.tree.with.onboarding.inherit.hide</field>
+        <field name= "model">sale.order</field>
+        <field name= "inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="groups_id" eval="[(4,ref('hide_buttons_opportunity.group_hide_create_and_edit_button_sale_order'))]"/>
+          <field name= 'arch' type='xml'>
+            <xpath expr= "//tree" position="attributes">
+              <attribute name="create">false</attribute>
+              <attribute name="edit">false</attribute>
+            </xpath>
+          </field>
+    </record>
   </data>
 </odoo>
 
