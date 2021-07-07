@@ -30,7 +30,7 @@
         <field name= "inherit_id" ref="crm.crm_case_tree_view_leads"/>
         <field name="groups_id" eval="[(4,ref('hide_buttons_opportunity.group_hide_create_and_edit_button_opportunity'))]"/>
           <field name= 'arch' type='xml'>
-            <xpath expr= "//list" position="attributes">
+            <xpath expr= "//tree" position="attributes">
               <attribute name="create">false</attribute>
               <attribute name="edit">false</attribute>
             </xpath>
