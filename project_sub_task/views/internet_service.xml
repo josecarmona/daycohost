@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="view_project_sub_task_internet_service" model="ir.ui.view">
+            <field name="name">view.project.sub.task.internet.service</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+
+                <!--Task / SubTask-->
+                <xpath expr="//page[@name='extra_info']" position="after">
+                    <page name="internet_service" string="Internet" attrs="{'invisible':[('service_type', 'not in', 'servicio_internet')]}">
+                        <div style="width:100%;">
+                            <group name="group_top">
+                                
+                                <group name="group_left" style="width:50%;">
+                                    <field name="internet_location" />
+                                    <field name="internet_destination" />
+                                    <field name="internet_security" />
+                                    <field name="internet_public_addresses" />
+                                    <field name="internet_dayco_cloud" />
+                                    <field name="internet_bandwidth" />
+                                </group>
+                                
+                                <group name="group_rigth">
+                                </group>
+                            
+                            </group>
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -25,6 +25,17 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
-        'views/templates.xml',
+        'views/server_installation.xml',
+        'views/clone_server.xml',
+        'views/expansion_decrease.xml',
+        'views/links.xml',
+        'views/internet_service.xml',
+        'views/security_service.xml',
+        'views/placement.xml',
+        'views/cabling_utp.xml',
+        'views/cabling_fo.xml',
+        'views/coaxial_wiring.xml',
+        'views/additional_resources.xml',
+        'views/production_pass.xml',
     ],
 }

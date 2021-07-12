@@ -14,7 +14,7 @@ class ProjectSubTask(models.Model):
         ('pase_produccion', 'Pase a Producción')], string="Tipo de Servicio", required=True)
     percentage_progress = fields.Float(required=True)
 
-    #Page: Server Installation
+    #PAGE: Server Installation
     hostname = fields.Char(string="Hostname", required=True, 
     help="El Nombre para el Host NO debe iniciar con un Numero y su Longitud NO debe ser mayor a 14 caracteres.")
     
@@ -62,7 +62,7 @@ class ProjectSubTask(models.Model):
     # Installation Features
     partitions_name_size = fields.Char(string="Particiones: Nombre / Tamaño", required=True)
 
-    #--- Page: Clone Server ---
+    #--- PAGE: Clone Server ---
     
     clo_hostname = fields.Char(string="Hostname", required=True, 
     help="El Nombre para el Host NO debe iniciar con un Numero y su Longitud NO debe ser mayor a 14 caracteres.")
@@ -114,7 +114,7 @@ class ProjectSubTask(models.Model):
     # Installation Features
     clo_partitions_name_size = fields.Char(string="Particiones: Nombre / Tamaño", required=True)
     
-    #--- Page: Expansion decrease of processing storage capacities ---
+    #--- PAGE: Expansion decrease of processing storage capacities ---
     amp_hostname = fields.Char(string="Hostname", required=True, 
     help="Indica el nombre del servidor a ajustar las capacidades.")
 
@@ -125,13 +125,56 @@ class ProjectSubTask(models.Model):
 
     amp_ip_addres = fields.Char(string="Dirección IP", required=True)
     
-    #--- Page: Links ---
+    #--- PAGE: Links ---
     link_location = fields.Selection([('ctdc','CTDC'),('ctdv','CTDV')],string="Ubicación")
     link_destination = fields.Selection([('enlace_colocado','Colocado'),('nube_dayco','Nube Dayco'),('enlace_internet','Internet')],string="Destino")
     link_dayco_cloud = fields.Selection([('infra_dayco','Infraestructura Dayco'),('infra_aliado','Infraestructura Aliado'),('no_aplica','N/A')],string="Nube Dayco")
     link_dci = fields.Boolean(string="DCI")
-    link_bandwidth = fields.Char(string="Ancho de Banda")
+    link_bandwidth = fields.Char(string="Ancho de Banda DCI")
     
+    #--- PAGE: Internet Service ---
+    internet_location = fields.Selection([('ctdc','CTDC'),('ctdv','CTDV')],string="Ubicación")
+    internet_destination = fields.Selection([('internet_colocado','Colocado'),('internet_nube_dayco','Nube Dayco'),('internet_enlace','Enlace'),('internet_todas','Todas')],string="Destino")
+    internet_security = fields.Boolean(string="Seguridad")
+    internet_public_addresses = fields.Char(string="Direcciones Publicas") 
+    internet_dayco_cloud = fields.Selection([('internet_infra_dayco','Infraestructura Dayco'),('internet_infra_aliado','Infraestructura Aliado')],string="Nube Dayco")
+    internet_bandwidth = fields.Char(string="Ancho de Banda")
+
+    #--- PAGE: Security Service ---
+    secu_serv_security_level = fields.Selection([('seguridad_avanzado','Seguridad Avanzado'),('seguridad_basico','Seguridad Básico'),('seguridad_dedicada','Seguridad Dedicada'),],string="Nivel de Seguridad")
+
+    #VPN
+    secu_serv_vpn_required = fields.Boolean(string="Requiere VPN")
+    secu_serv_vpn_type = fields.Selection([('ssl','SSL'),('site_to_site','Site-to-Site')],string="Tipo de VPN")
+    secu_serv_schedule_annex = fields.Char(string="Anexo de Planilla site-to-site")
+    
+    #Dayco Server
+    secu_serv_number_servers = fields.Integer(string="Cantidad de Servidores")
+    secu_serv_public_servers = fields.Char(string="Servidores Públicos")
+    secu_serv_ports = fields.Integer(string="Puertos")
+
+    #Placement
+    secu_serv_placement_number_servers = fields.Integer(string="Cantidad de Servidores")
+    secu_serv_placement_public_servers = fields.Char(string="Servidores Públicos")
+    secu_serv_outgoing_traffic_ports = fields.Char(string="Puertos Tráfico de Salida")
+    secu_serv_placement_ports = fields.Char(string="Puertos")
+
+    #Add Service
+    secu_serv_ips = fields.Char(string="IPS")
+    secu_serv_ids = fields.Char(string="IDS")
+    secu_serv_web_filtering = fields.Boolean(string="Web Filtering")
+    secu_serv_waf = fields.Boolean(string="WAF")
+    secu_serv_app_control = fields.Boolean(string="Application Control")
+    secu_serv_ldap = fields.Boolean(string="LDAP")
+    secu_serv_fsso = fields.Boolean(string="FSSO")
+
+    #Balancer
+    secu_serv_dir_ip_1 = fields.Char(string="Dirección IP (1)")
+    secu_serv_dir_ip_2 = fields.Char(string="Dirección IP (2)")
+    secu_serv_dir_ip_3 = fields.Char(string="Dirección IP (3)")
+    secu_serv_balancer_ports = fields.Integer(string="Puertos")
+
+
     #Validations
     @api.onchange('hostname','clo_hostname','amp_hostname')
     @api.constrains('hostname','clo_hostname','amp_hostname')
@@ -256,13 +299,13 @@ class ProjectSubTask(models.Model):
             if error:
                 raise exceptions.ValidationError('Dirección IP. ' + error_message)
     
-    @api.onchange('link_bandwidth')
-    @api.constrains('link_bandwidth')
+    @api.onchange('link_bandwidth','internet_bandwidth')
+    @api.constrains('link_bandwidth','internet_bandwidth')
     def check_link_bandwidth(self):
         
         error = False
         for record in self:
-            if record.link_bandwidth and not len(record.link_bandwidth) <= 12:
+            if (record.link_bandwidth and not len(record.link_bandwidth) <= 12) or (record.internet_bandwidth and not len(record.internet_bandwidth) <= 12):
                 error = True
                 error_message = "La longtud no debe ser mayor a 12 caracteres."
             if error:

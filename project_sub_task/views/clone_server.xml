@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_project_sub_task_clone_server" model="ir.ui.view">
+            <field name="name">view.project.sub.task.install.server</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+
+                <!--Task / SubTask-->
+                <xpath expr="//page[@name='extra_info']" position="after">
+
+                    <!--Page: Clone Server-->
+                    <page name="clone_server" string="Clonación Servidor" attrs="{'invisible':[('service_type', 'not in', 'clonar_servidor')]}">
+
+                        <group name="clo_hostname_group" style="width:50%;">
+                            <field name="clo_hostname" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                        </group>
+
+                        <div style="width:100%;">
+                            <group name="group_top">
+
+                                <group name="group_left" style="width:50%;">
+                                    <div>
+
+                                        <!--Server Resources-->
+                                        <group name="server_resources_group" string="Recursos del Servidor">
+                                            <field name="clo_server_ram" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_server_cpu" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_server_storage" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                        </group>
+
+                                        <!--Operating System-->
+                                        <group name="operating_system_group" string="Sistema Operativo">
+                                            <field name="clo_operative_system" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_operating_system_arch" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_lang_operating_system" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_server_on_internet" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_server_function" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_server_impact" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_mission_critical" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_server_role" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_service_classification" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_req_internet_access" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="hypervisor_virtual_server_comes" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="vm_version_in_vmware" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_additional_conf" />
+                                            <field name="clo_num_inc_out_ports" />
+                                            <field name="clo_add_requirement" />
+                                            <field name="clo_description_monitoring_system" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_virtual_platform" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                        </group>
+                                    </div>
+                                </group>
+
+                                <group name="group_rigth" style="width:50%;">
+
+                                    <div>
+                                        <!--Disk Characteristics-->
+                                        <group name="disk_characteristics_group" string="Características del Disco">
+                                            <field name="clo_size_operating_system_level" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_size_hypervisor_level" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_disk_type" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                            <field name="clo_virtual_disk_extension" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                        </group>
+                                        <!--Installation Characteristics-->
+                                        <group name="installation_characteristics_group" string="Características de la Instalación">
+                                            <field name="clo_partitions_name_size" attrs="{'required':[('service_type', 'in', 'clonar_servidor')]}"/>
+                                        </group>
+                                    </div>
+                                </group>
+                            </group>
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
