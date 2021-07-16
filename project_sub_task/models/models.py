@@ -11,8 +11,8 @@ class ProjectSubTask(models.Model):
         ('enlaces', 'Enlaces'), ('servicio_internet', 'Internet'), ('servicio_seguridad', 'Servicio de Seguridad'), 
         ('colocacion', 'Colocación'), ('cableado_utp', 'Cableado UTP'), ('cableado_fo', 'Cableado FO'), 
         ('cableado_coaxial', 'Cableado Coaxial'), ('recursos_adicionales', 'Recursos Adicionales'), 
-        ('pase_produccion', 'Pase a Producción')], string="Tipo de Servicio", required=True)
-    percentage_progress = fields.Float(required=True)
+        ('pase_produccion', 'Pase a Producción')], string="Tipo de Servicio")
+    percentage_progress = fields.Float((5,2),required=True)
 
     #PAGE: Server Installation
     hostname = fields.Char(string="Hostname", required=True, 
@@ -174,6 +174,76 @@ class ProjectSubTask(models.Model):
     secu_serv_dir_ip_3 = fields.Char(string="Dirección IP (3)")
     secu_serv_balancer_ports = fields.Integer(string="Puertos")
 
+    #--- PAGE: Placement ---
+    
+    # Placement request
+    place_m2c_cage = fields.Float(string="m2 (jaula)")
+    place_one_rack = fields.Char(string="1 Rack")
+    place_one_three_rack = fields.Char(string="1/3 Rack")
+    place_telecom_tower = fields.Float(string="Espacio en Torre Telecom")
+
+    # Equipment listings
+    place_item = fields.Char(string="Item")
+    place_equipment_description = fields.Char(string="Descripción del equipo")    
+    place_equipment_brand = fields.Char(string="Marca")
+    place_equipment_model = fields.Char(string="Modelo")
+    place_equipment_serial = fields.Char(string="Serial")
+    palce_type = fields.Selection([('place_servidor', 'Servidor'),('palce_telecom', 'Telecom')],string="Tipo")
+    palce_request = fields.Char(string="Solicitud")
+    palce_delivery = fields.Char(string="Entrega")
+    palce_dimensions = fields.Char(string="Dimensiones (U de rack)")
+    palce_nominal_load = fields.Char(string="Carga Nominal (KVA)")
+    palce_tension_level = fields.Char(string="Nivel de Tensión (V)")
+    place_current = fields.Char(string="Corriente (A)")
+    place_number_power_sources = fields.Integer(string="Cantidad de Fuentes de Poder")
+    place_btu = fields.Char(string="BTU")
+    place_remarks = fields.Char(string="Observaciones")
+    
+    #--- PAGE: Cabling UTP ---
+
+    utp_location = fields.Selection([('utp_valencia', 'Valencia'),('utp_caracas', 'Caracas')], string="Localidad en la que se requiere")
+    utp_date = fields.Date(string="Fecha requerida")
+
+    utp_service_type = fields.Selection([('utp_intra_connect', 'Intra-Connect'),('utp_cross_conect', 'Cross-Conect'),('utp_interconexion', 'Interconexión'),('utp_dci', 'DCI')], string="Tipo de Servicio")
+    utp_origin_rack = fields.Char(string="Rack de Origen")
+    utp_destination_rack = fields.Char(string="Rack de Destino")
+    utp_category = fields.Selection([('utp_cat5e', 'CAT 5e (Telefonia)'),('utp_cat6', 'CAT 6'),('utp_cat6a', 'CAT 6A')], string="Categoría")
+    utp_quantity = fields.Integer(string="Cantidad")
+    utp_completed = fields.Boolean(string="Completado")
+    utp_observations = fields.Char(string="Observaciones")
+
+    #--- PAGE: Cabling FO ---
+    fo_location = fields.Selection([('fo_valencia', 'Valencia'),('fo_caracas', 'Caracas')], string="Localidad en la que se requiere")
+    fo_date = fields.Date(string="Fecha requerida")
+
+    fo_service_type = fields.Selection([('fo_intra_connect', 'Intra-Connect'),('fo_cross_conect', 'Cross-Conect'),('fo_interconexion', 'Interconexión'),('fo_dci', 'DCI')], string="Tipo de Servicio")
+    fo_fiber_mode = fields.Selection([('fo_monomodo_om1', 'Monomodo OM1'),('fo_monomodo_om2', 'Monomodo OM2'),('fo_monomodo_om3', 'Monomodo OM3'),('fo_monomodo_om4', 'Monomodo OM4'),('fo_multimodo', 'Multimodo (OS1 / OS2)')], string="Modo de Fibra")
+    fo_fiber_type = fields.Selection([('fo_simplex', 'Simplex'),('fo_duplex', 'Duplex')],string="Tipo de Fibra")
+    
+    fo_origin_rack = fields.Char(string="Rack de Origen")
+    fo_origin_connector = fields.Selection([('fo_orig_st', 'ST'),('fo_orig_lc', 'LC'),('fo_orig_sc', 'SC'),('fo_orig_mpt_mpo', 'MPT/MPO')],string="Conector Origen")
+    
+    fo_destination_rack = fields.Char(string="Rack de Destino")
+    fo_destination_connector = fields.Selection([('fo_dest_st', 'ST'),('fo_dest_lc', 'LC'),('fo_dest_sc', 'SC'),('fo_dest_mpt_mpo', 'MPT/MPO')],string="Conector Destino")
+
+    
+    fo_quantity = fields.Integer(string="Cantidad")
+    fo_completed = fields.Boolean(string="Completado")
+    fo_observations = fields.Char(string="Observaciones")
+
+    #--- PAGE: Coaxial Cabling ---
+    co_location = fields.Selection([('co_valencia', 'Valencia'),('co_caracas', 'Caracas')], string="Localidad en la que se requiere")
+    co_date = fields.Date(string="Fecha requerida")
+
+    co_service_type = fields.Selection([('co_intra_connect', 'Intra-Connect'),('co_cross_conect', 'Cross-Conect'),('co_interconexion', 'Interconexión'),('co_dci', 'DCI')], string="Tipo de Servicio")
+    co_origin_rack = fields.Char(string="Rack de Origen")
+    co_destination_rack = fields.Char(string="Rack de Destino")
+    co_driver = fields.Selection([('co_coaxial', 'Coaxial'),('co_minicoaxial', 'Minicoaxial')], string="Conductor")
+    co_type = fields.Selection([('co_r559', 'R559'),('co_rg11', 'RG11')],string="Tipo")
+    co_quantity = fields.Integer(string="Cantidad")
+    co_completed = fields.Boolean(string="Completado")
+    co_observations = fields.Char(string="Observaciones")
+
 
     #Validations
     @api.onchange('hostname','clo_hostname','amp_hostname')
@@ -310,3 +380,11 @@ class ProjectSubTask(models.Model):
                 error_message = "La longtud no debe ser mayor a 12 caracteres."
             if error:
                 raise exceptions.ValidationError('Ancho de Banda. ' + error_message)
+
+    @api.onchange('percentage_progress')
+    @api.constrains('percentage_progress')
+    def check_progress(self):
+        error = False
+        for record in self:
+            if not (record.percentage_progress >= 0 and record.percentage_progress <= 100):
+                raise exceptions.ValidationError('El valor del Porcentaje debe estar entre [0, 100]')

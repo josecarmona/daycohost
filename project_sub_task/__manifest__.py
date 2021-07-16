@@ -34,7 +34,7 @@
         'views/placement.xml',
         'views/cabling_utp.xml',
         'views/cabling_fo.xml',
-        'views/coaxial_wiring.xml',
+        'views/coaxial_cabling.xml',
         'views/additional_resources.xml',
         'views/production_pass.xml',
     ],

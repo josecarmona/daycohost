@@ -3,7 +3,7 @@
     <data>
 
         <record id="view_project_sub_task_clone_server" model="ir.ui.view">
-            <field name="name">view.project.sub.task.install.server</field>
+            <field name="name">view.project.sub.task.clone.server</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_form2" />
             <field name="arch" type="xml">

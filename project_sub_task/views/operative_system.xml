@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Pruebas de Campos Relacionales-->
+        <record id="view_project_sub_task_operativesystem" model="ir.ui.view">
+            <field name="name">view.project.sub.task.operativesystem</field>
+            <field name="model">project_sub_task.operativesystem</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_deadline']" position="after">
+                    <field name="operativesystemlayout_ids"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_project_sub_task_operativesystemlayout" model="ir.ui.view">
+            <field name="name">view.project.sub.task.operativesystemlayout</field>
+            <field name="model">project_sub_task.operativesystemlayout</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="operativesystem_id"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

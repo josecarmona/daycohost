@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="view_project_sub_task_coaxial_cabling" model="ir.ui.view">
+            <field name="name">view.project.sub.task.coaxial.cabling</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='extra_info']" position="after">
+                    <page name="coaxial_cabling" string="Cableado CO" attrs="{'invisible':[('service_type', 'not in', 'cableado_coaxial')]}">
+                        <div style="width:100%;">
+                            <group name="group_top">
+
+                                <group name="group_left" style="width:50%;">
+                                    <div>
+                                        <group name="co_location_group" string="Ubicación y Fecha">
+                                            <field name="co_location" attrs="{'required':[('service_type', 'in', 'cableado_coaxial')]}" />
+                                            <field name="co_date" attrs="{'required':[('service_type', 'in', 'cableado_coaxial')]}" />
+                                        </group>
+
+                                        <group name="co_group" string="Cableado Coaxial">
+                                            <field name="co_service_type" attrs="{'required':[('service_type', 'in', 'cableado_coaxial')]}" />
+                                            <field name="co_origin_rack" />
+                                            <field name="co_destination_rack" />
+                                            <field name="co_driver" attrs="{'required':[('service_type', 'in', 'cableado_coaxial')]}"/>
+                                            <field name="co_type" attrs="{'required':[('service_type', 'in', 'cableado_coaxial')]}" />
+                                            <field name="co_quantity"/>
+                                            <field name="co_completed" attrs="{'invisible': [('service_type', 'in', 'cableado_coaxial')]}"/>
+                                            <field name="co_observations" attrs="{'invisible': [('service_type', 'in', 'cableado_coaxial')]}"/>
+                                        </group>
+
+                                    </div>
+                                </group>
+
+                                <group name="group_rigth" style="width:50%;">
+                                    <div>
+                                    </div>
+                                </group>
+
+                            </group>
+                        </div>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+
+
+</odoo>

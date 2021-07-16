@@ -69,5 +69,45 @@
                 </xpath>
             </field>
         </record>
+
+        
+        <!-- <record model="ir.ui.view" id="project_sub_task.operativesystem_list_view">
+            <field name="name">project_sub_task.operativesystem.view.tree"</field>
+            <field name="model">project_sub_task.operativesystem</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="operative_system"/>
+                    <field name="operative_system_arch"/>
+                    <field name="operativesystemlayout_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        
+        <record model="ir.ui.view" id="project_sub_task.operativesystemlayout_list_view">
+            <field name="name">project_sub_task.operativesystemlayout.view.tree"</field>
+            <field name="model">project_sub_task.operativesystemlayout</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="windows"/>
+                    <field name="linux"/>
+                    <field name="operativesystem_id"/>
+                </tree>
+            </field>
+        </record>
+
+        
+        <record model="ir.ui.view" id="project_sub_task.operativesystemversion_list_view">
+            <field name="name">project_sub_task.operativesystemversion.view.tree"</field>
+            <field name="model">project_sub_task.operativesystemversion</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="linux_centOS"/>
+                    <field name="linux_debian"/>
+                    <field name="linux_fedora"/>
+                </tree>
+            </field>
+        </record> -->
+
     </data>
 </odoo>

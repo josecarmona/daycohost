@@ -18,13 +18,13 @@
                                     <div>
                                         <!--Seciruty Service-->
                                         <group name="security_service_group" string="Servicio de Seguridad">
-                                            <field name="secu_serv_security_level" />
+                                            <field name="secu_serv_security_level" attrs="{'required':[('service_type', 'in', 'servicio_seguridad')]}"/>
                                         </group>
 
                                         <!--VPN-->
                                         <group name="vpn_group" string="VPN">
                                             <field name="secu_serv_vpn_required" />
-                                            <field name="secu_serv_vpn_type" />
+                                            <field name="secu_serv_vpn_type" attrs="{'required':[('service_type', 'in', 'servicio_seguridad')]}"/>
                                             <field name="secu_serv_schedule_annex" />
                                         </group>
 

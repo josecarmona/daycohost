@@ -15,10 +15,29 @@
                         <div style="width:100%;">
                             <group name="group_top">
 
-                                <group name="group_left">
+                                <group name="group_left" style="width:50%;">
+                                    <div>
+                                        <group name="utp_location_group" string="Ubicación y Fecha">
+                                            <field name="utp_location" attrs="{'required':[('service_type', 'in', 'cableado_utp')]}" />
+                                            <field name="utp_date" attrs="{'required':[('service_type', 'in', 'cableado_utp')]}" />
+                                        </group>
+
+                                        <group name="utp_group" string="Cableado UTP">
+                                            <field name="utp_service_type" attrs="{'required':[('service_type', 'in', 'cableado_utp')]}" />
+                                            <field name="utp_origin_rack" />
+                                            <field name="utp_destination_rack" />
+                                            <field name="utp_category" attrs="{'required':[('service_type', 'in', 'cableado_utp')]}" />
+                                            <field name="utp_quantity"/>
+                                            <field name="utp_completed" attrs="{'invisible': [('service_type', 'in', 'cableado_utp')]}"/>
+                                            <field name="utp_observations" attrs="{'invisible': [('service_type', 'in', 'cableado_utp')]}" />
+                                        </group>
+
+                                    </div>
                                 </group>
 
-                                <group name="group_rigth">
+                                <group name="group_rigth" style="width:50%;">
+                                    <div>
+                                    </div>
                                 </group>
 
                             </group>

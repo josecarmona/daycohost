@@ -19,9 +19,9 @@
                                 <group name="group_left" style="width:50%;">
                                     <div>
                                         <group name="links_group">
-                                            <field name="link_location" />
-                                            <field name="link_destination" />
-                                            <field name="link_dayco_cloud" />
+                                            <field name="link_location" attrs="{'required':[('service_type', 'in', 'enlaces')]}" />
+                                            <field name="link_destination" attrs="{'required':[('service_type', 'in', 'enlaces')]}"/>
+                                            <field name="link_dayco_cloud" attrs="{'required':[('service_type', 'in', 'enlaces')]}"/>
                                             <field name="link_dci" />
                                             <field name="link_bandwidth" />
                                             <!-- <field name="link_location" attrs="{'required':[('service_type', 'in', 'enlaces')]}"/>

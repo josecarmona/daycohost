@@ -16,10 +16,33 @@
                         <div style="width:100%;">
                             <group name="group_top">
 
-                                <group name="group_left">
+                                <group name="group_left" style="width:50%;">
+                                    <div>
+                                        <group name="fo_location_group" string="Ubicación y Fecha">
+                                            <field name="fo_location" attrs="{'required':[('service_type', 'in', 'cableado_fo')]}" />
+                                            <field name="fo_date" attrs="{'required':[('service_type', 'in', 'cableado_fo')]}" />
+                                        </group>
+
+                                        <group name="fo_group" string="Cableado FO">
+                                            <field name="fo_service_type" attrs="{'required':[('service_type', 'in', 'cableado_fo')]}" />
+                                            <field name="fo_fiber_mode" attrs="{'required':[('service_type', 'in', 'cableado_fo')]}" />
+                                            <field name="fo_fiber_type" attrs="{'required':[('service_type', 'in', 'cableado_fo')]}" />
+                                            
+                                            <field name="fo_origin_rack" />
+                                            <field name="fo_origin_connector" attrs="{'required': [('service_type', 'in', 'cableado_fo')]}" />
+                                            
+                                            <field name="fo_destination_rack" />
+                                            <field name="fo_destination_connector" attrs="{'required': [('service_type', 'in', 'cableado_fo')]}" />
+                                            
+                                            
+                                            <field name="fo_quantity"/>
+                                            <field name="fo_completed" attrs="{'invisible': [('service_type', 'in', 'cableado_fo')]}"/>
+                                            <field name="fo_observations" attrs="{'invisible': [('service_type', 'in', 'cableado_fo')]}"/>
+                                        </group>
+                                    </div>
                                 </group>
 
-                                <group name="group_rigth">
+                                <group name="group_rigth" style="width:50%;">
                                 </group>
 
                             </group>
