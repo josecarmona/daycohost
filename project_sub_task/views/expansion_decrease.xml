@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_project_sub_task_exp_dec" model="ir.ui.view">
+            <field name="name">view.project.sub.task.exp.dec</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+                <!--Task / SubTask-->
+                <xpath expr="//page[@name='extra_info']" position="after">
+                    <!--Expansion decrease of processing storage capacities-->
+                    <page name="expansion_decrease_of_processing_storage_capacities" string="Ampliación/Disminución de Capacidades de Procesamiento/Almacenamiento" attrs="{'invisible':[('service_type', 'not in', 'ampliacion_disminucion_servicio')]}">
+                        <div style="width:100%;">
+                            <group name="amp_hostname_group" style="width:50%;">
+                                <field name="amp_hostname" attrs="{'required':[('service_type', 'in', 'ampliacion_disminucion_servicio')]}"/>
+                            </group>
+                        </div>
+
+                        <div style="width:100%;">
+                            <group name="group_top">
+
+                                <group name="group_left" style="width:50%;">
+                                    <div>
+                                        <!--Server Resources-->
+                                        <group name="server_resources_group" string="Recursos del Servidor">
+                                            <field name="amp_server_ram"/>
+                                            <field name="amp_server_cpu"/>
+                                            <field name="amp_server_storage"/>
+                                            <!-- <field name="amp_server_ram" attrs="{'required':[('service_type', 'in', 'ampliacion_disminucion_servicio')]}"/>
+                                            <field name="amp_server_cpu" attrs="{'required':[('service_type', 'in', 'ampliacion_disminucion_servicio')]}"/>
+                                            <field name="amp_server_storage" attrs="{'required':[('service_type', 'in', 'ampliacion_disminucion_servicio')]}"/> -->
+                                        </group>
+
+                                        <!--IP Addres-->
+                                        <group name="amp_ip_addres_group">
+                                            <field name="amp_ip_addres" attrs="{'required':[('service_type', 'in', 'ampliacion_disminucion_servicio')]}"/>
+                                        </group>
+                                    </div>
+                                </group>
+
+                                <group name="group_rigth">
+                                </group>
+
+                            </group>
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

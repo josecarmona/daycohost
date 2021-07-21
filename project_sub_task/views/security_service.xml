@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_project_sub_task_security_service" model="ir.ui.view">
+            <field name="name">view.project.sub.task.security.service</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+
+                <!--Task / SubTask-->
+                <xpath expr="//page[@name='extra_info']" position="after">
+                    <page name="security_service" string="Servicio de Seguridad" attrs="{'invisible':[('service_type', 'not in', 'servicio_seguridad')]}">
+                        <div style="width:100%;">
+                            <group name="group_top">
+
+                                <group name="group_left" style="width:50%;">
+                                    <div>
+                                        <!--Seciruty Service-->
+                                        <group name="security_service_group" string="Servicio de Seguridad">
+                                            <field name="secu_serv_security_level" attrs="{'required':[('service_type', 'in', 'servicio_seguridad')]}"/>
+                                        </group>
+
+                                        <!--VPN-->
+                                        <group name="vpn_group" string="VPN">
+                                            <field name="secu_serv_vpn_required" />
+                                            <field name="secu_serv_vpn_type" attrs="{'required':[('service_type', 'in', 'servicio_seguridad')]}"/>
+                                            <field name="secu_serv_schedule_annex" />
+                                        </group>
+
+                                        <!--Dayco Server-->
+                                        <group name="dayco_server_group" string="Servidor Dayco">
+                                            <field name="secu_serv_number_servers" />
+                                            <field name="secu_serv_public_servers" />
+                                            <field name="secu_serv_ports" />
+                                        </group>
+
+                                        <!--Placement-->
+                                        <group name="placement_group" string="Colocado">
+                                            <field name="secu_serv_placement_number_servers" />
+                                            <field name="secu_serv_placement_public_servers" />
+                                            <field name="secu_serv_outgoing_traffic_ports" />
+                                            <field name="secu_serv_placement_ports" />
+                                        </group>
+                                    </div>
+                                </group>
+
+                                <group name="group_rigth" style="width:50%;">
+                                    <div>
+                                        <!--Add Service-->
+                                        <group name="add_service_group" string="Servicios Adicionales (Requiere Seguridad Avanzada o Dedicada)">
+                                            <field name="secu_serv_ips" />
+                                            <field name="secu_serv_ids" />
+                                            <field name="secu_serv_web_filtering" />
+                                            <field name="secu_serv_waf" />
+                                            <field name="secu_serv_app_control" />
+                                            <field name="secu_serv_ldap" />
+                                            <field name="secu_serv_fsso" />
+                                        </group>
+
+                                        <!--Balancer-->
+                                        <group name="balancer_group" string="Balanceador (Requiere Seguridad Avanzada o Dedicada)">
+                                            <field name="secu_serv_dir_ip_1" />
+                                            <field name="secu_serv_dir_ip_2" />
+                                            <field name="secu_serv_dir_ip_3" />
+                                            <field name="secu_serv_balancer_ports" />
+                                        </group>
+                                    </div>
+                                </group>
+
+                            </group>
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

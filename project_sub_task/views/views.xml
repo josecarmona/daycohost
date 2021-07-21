@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="project_sub_task.form">
+      <field name="name">project_sub_task form</field>
+      <field name="model">project.task</field>
+      <field name="inherit_id" ref="project.view_task_form2" />
+      <field name="arch" type="xml">
+
+        <xpath expr="//field[@name='user_id']" position="after">
+          <field name="edt" />
+          <field name="service_type" />
+          <field name="percentage_progress" string="% de Avance"/>
+        </xpath>
+
+      </field>
+    </record>
+  </data>
+</odoo>

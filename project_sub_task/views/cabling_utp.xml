@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="view_project_sub_task_cabling_utp" model="ir.ui.view">
+            <field name="name">view.project.sub.task.cabling.utp</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+
+                <!--Task / SubTask-->
+                <xpath expr="//page[@name='extra_info']" position="after">
+                    <page name="cabling_utp" string="Cableado UTP" attrs="{'invisible':[('service_type', 'not in', 'cableado_utp')]}">
+                        <div style="width:100%;">
+                            <group name="group_top">
+
+                                <group name="group_left" style="width:50%;">
+                                    <div>
+                                        <group name="utp_location_group" string="Ubicación y Fecha">
+                                            <field name="utp_location" attrs="{'required':[('service_type', 'in', 'cableado_utp')]}" />
+                                            <field name="utp_date" attrs="{'required':[('service_type', 'in', 'cableado_utp')]}" />
+                                        </group>
+
+                                        <group name="utp_group" string="Cableado UTP">
+                                            <field name="utp_service_type" attrs="{'required':[('service_type', 'in', 'cableado_utp')]}" />
+                                            <field name="utp_origin_rack" />
+                                            <field name="utp_destination_rack" />
+                                            <field name="utp_category" attrs="{'required':[('service_type', 'in', 'cableado_utp')]}" />
+                                            <field name="utp_quantity"/>
+                                            <field name="utp_completed" attrs="{'invisible': [('service_type', 'in', 'cableado_utp')]}"/>
+                                            <field name="utp_observations" attrs="{'invisible': [('service_type', 'in', 'cableado_utp')]}" />
+                                        </group>
+
+                                    </div>
+                                </group>
+
+                                <group name="group_rigth" style="width:50%;">
+                                    <div>
+                                    </div>
+                                </group>
+
+                            </group>
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

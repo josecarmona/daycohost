@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="view_project_sub_task_placement" model="ir.ui.view">
+            <field name="name">view.project.sub.task.placement</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+
+                <!--Task / SubTask-->
+                <xpath expr="//page[@name='extra_info']" position="after">
+                    <page name="placement" string="Colocación" attrs="{'invisible':[('service_type', 'not in', 'colocacion')]}">
+                        <div style="width:100%;">
+                            <group name="group_top">
+
+                                <group name="group_left" style="width:50%;">
+                                    <div>
+                                        <group name="placement_request_group" string="Solicitud de Colocación">
+                                            <field name="place_m2c_cage"  />
+                                            <field name="place_one_rack"  />
+                                            <field name="place_one_three_rack"  />
+                                            <field name="place_telecom_tower"  />
+                                        </group>
+
+                                        <group name="equipment_listings_group" string="Listado de Equipos">
+                                            <field name="place_item"  />
+                                            <field name="place_equipment_description"  />
+                                            <field name="place_equipment_brand"  />
+                                            <field name="place_equipment_model"  />
+                                            <field name="place_equipment_serial"  />
+                                            <field name="palce_type"  attrs="{'required':[('service_type', 'in', 'colocacion')]}"/>
+                                            <field name="palce_request"  />
+                                            <field name="palce_delivery"  />
+
+                                            <field name="palce_dimensions"  />
+                                            <field name="palce_nominal_load"  />
+                                            <field name="palce_tension_level"  />
+                                            <field name="place_current"  />
+                                            <field name="place_number_power_sources"  />
+                                            <field name="place_btu"  />
+                                            <field name="place_remarks"  />
+                                        </group>    
+                                    </div>
+                                </group>
+
+                                <group name="group_rigth">
+                                </group>
+
+                            </group>
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

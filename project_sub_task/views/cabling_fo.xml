@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="view_project_sub_task_cabling_fo" model="ir.ui.view">
+            <field name="name">view.project.sub.task.cabling.fo</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+
+                <!--Task / SubTask-->
+                <xpath expr="//page[@name='extra_info']" position="after">
+                    <!--Cabling fo-->
+                    <page name="cabling_fo" string="Cableado FO" attrs="{'invisible':[('service_type', 'not in', 'cableado_fo')]}">
+                        <div style="width:100%;">
+                            <group name="group_top">
+
+                                <group name="group_left" style="width:50%;">
+                                    <div>
+                                        <group name="fo_location_group" string="Ubicación y Fecha">
+                                            <field name="fo_location" attrs="{'required':[('service_type', 'in', 'cableado_fo')]}" />
+                                            <field name="fo_date" attrs="{'required':[('service_type', 'in', 'cableado_fo')]}" />
+                                        </group>
+
+                                        <group name="fo_group" string="Cableado FO">
+                                            <field name="fo_service_type" attrs="{'required':[('service_type', 'in', 'cableado_fo')]}" />
+                                            <field name="fo_fiber_mode" attrs="{'required':[('service_type', 'in', 'cableado_fo')]}" />
+                                            <field name="fo_fiber_type" attrs="{'required':[('service_type', 'in', 'cableado_fo')]}" />
+                                            
+                                            <field name="fo_origin_rack" />
+                                            <field name="fo_origin_connector" attrs="{'required': [('service_type', 'in', 'cableado_fo')]}" />
+                                            
+                                            <field name="fo_destination_rack" />
+                                            <field name="fo_destination_connector" attrs="{'required': [('service_type', 'in', 'cableado_fo')]}" />
+                                            
+                                            
+                                            <field name="fo_quantity"/>
+                                            <field name="fo_completed" attrs="{'invisible': [('service_type', 'in', 'cableado_fo')]}"/>
+                                            <field name="fo_observations" attrs="{'invisible': [('service_type', 'in', 'cableado_fo')]}"/>
+                                        </group>
+                                    </div>
+                                </group>
+
+                                <group name="group_rigth" style="width:50%;">
+                                </group>
+
+                            </group>
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
