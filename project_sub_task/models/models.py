@@ -13,7 +13,9 @@ class ProjectSubTask(models.Model):
         ('cableado_coaxial', 'Cableado Coaxial'), ('recursos_adicionales', 'Recursos Adicionales'), 
         ('pase_produccion', 'Pase a Producción')], string="Tipo de Servicio")
     percentage_progress = fields.Float((5,2),required=True)
-
+    weighting_factor = fields.Float(string="FP", required=True , help="Factor de Ponderación")
+    
+    
     #PAGE: Server Installation
     hostname = fields.Char(string="Hostname", required=True, 
     help="El Nombre para el Host NO debe iniciar con un Numero y su Longitud NO debe ser mayor a 14 caracteres.")
@@ -381,10 +383,16 @@ class ProjectSubTask(models.Model):
             if error:
                 raise exceptions.ValidationError('Ancho de Banda. ' + error_message)
 
-    @api.onchange('percentage_progress')
-    @api.constrains('percentage_progress')
+    @api.onchange('percentage_progress','weighting_factor')
+    @api.constrains('percentage_progress','weighting_factor')
     def check_progress(self):
         error = False
         for record in self:
             if not (record.percentage_progress >= 0 and record.percentage_progress <= 100):
-                raise exceptions.ValidationError('El valor del Porcentaje debe estar entre [0, 100]')
+                error = True
+                error_message = "Porcentaje"
+            elif not (record.weighting_factor >= 0 and record.weighting_factor <= 100):
+                error = True
+                error_message = "Factor de Ponderación"
+            if error:
+                raise exceptions.ValidationError('El valor del ' + error_message + ' debe estar entre [0, 100]')
