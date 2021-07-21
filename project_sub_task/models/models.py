@@ -12,7 +12,7 @@ class ProjectSubTask(models.Model):
         ('colocacion', 'Colocación'), ('cableado_utp', 'Cableado UTP'), ('cableado_fo', 'Cableado FO'), 
         ('cableado_coaxial', 'Cableado Coaxial'), ('recursos_adicionales', 'Recursos Adicionales'), 
         ('pase_produccion', 'Pase a Producción')], string="Tipo de Servicio")
-    percentage_progress = fields.Float((5,2),required=True)
+    percentage_progress = fields.Float(digist=(5,2),required=True)
 
     #PAGE: Server Installation
     hostname = fields.Char(string="Hostname", required=True, 
