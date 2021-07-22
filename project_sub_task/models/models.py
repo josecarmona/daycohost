@@ -4,18 +4,22 @@ from odoo import models, fields, api, exceptions
 
 class ProjectSubTask(models.Model):
     _inherit = 'project.task'
-    
+
+
     edt = fields.Char(string="EDT", required=True)
     service_type = fields.Selection([('instalar_servidor', 'Instalar Servidor'), (
         'clonar_servidor', 'Clonar Servidor'), ('ampliacion_disminucion_servicio', 'Ampliación o Disminución de Servicio'),
         ('enlaces', 'Enlaces'), ('servicio_internet', 'Internet'), ('servicio_seguridad', 'Servicio de Seguridad'), 
         ('colocacion', 'Colocación'), ('cableado_utp', 'Cableado UTP'), ('cableado_fo', 'Cableado FO'), 
         ('cableado_coaxial', 'Cableado Coaxial'), ('recursos_adicionales', 'Recursos Adicionales'), 
-        ('pase_produccion', 'Pase a Producción')], string="Tipo de Servicio")
-    percentage_progress = fields.Float((5,2),required=True)
+        ('pase_produccion', 'Pase a Producción'),('validar_acuerdo_cliente','Validar acuerdos con el Cliente / Facturación')], string="Tipo de Servicio")
+    percentage_progress = fields.Float(digits=(5,2),required=True)
     weighting_factor = fields.Float(string="FP", required=True , help="Factor de Ponderación")
     
-    
+    # estimated_start_date = fields.Date(string="Fecha Estimada Inicio")
+    # estimated_end_date = fields.Date(string="Fecha Estimada Fin")
+    # billing_start_date = fields.Date(string="Fecha Inicio Facturación")
+
     #PAGE: Server Installation
     hostname = fields.Char(string="Hostname", required=True, 
     help="El Nombre para el Host NO debe iniciar con un Numero y su Longitud NO debe ser mayor a 14 caracteres.")
@@ -246,7 +250,20 @@ class ProjectSubTask(models.Model):
     co_completed = fields.Boolean(string="Completado")
     co_observations = fields.Char(string="Observaciones")
 
-
+    #--- PAGE: Validate Agreements Client
+    #Dates
+    valid_agree_estimated_start_date = fields.Date(string="Fecha estimada inicio proyecto")
+    valid_agree_estimated_end_project_date = fields.Date(string="Fecha estimada fin proyecto")
+    valid_agree_recurring_billing_start_date = fields.Date(string="Fecha incio facturación recurrente")
+    valid_agree_estimated_payment_date = fields.Date(string="Fecha estimada de pago")
+    valid_agree_weight = fields.Float(string="Peso")
+    valid_agree_order_number = fields.Integer(string="# Pedido")
+    valid_agree_sales_order_element = fields.Char(string="Elemento del pedido de venta")
+    valid_agree_default_currency = fields.Selection([('ves','VES'),('usd','USD'),('eur','EUR')],string="Moneda predeterminada")
+    valid_agree_room_location = fields.Selection([('ctdc','Caracas'),('ctdv','Valencia')],string="Localidad de la habitación")
+    valid_agree_sales_order_line_amount = fields.Float(string="Monto linea del pedido de venta")
+    paymentbyprencentage_ids = fields.One2many(string='Pago por porcentaje (%)', comodel_name='paymentbyprencentage', inverse_name='projectsubtask_id')
+    
     #Validations
     @api.onchange('hostname','clo_hostname','amp_hostname')
     @api.constrains('hostname','clo_hostname','amp_hostname')
