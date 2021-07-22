@@ -9,7 +9,7 @@
             <field name="inherit_id" ref="project.view_task_form2" />
             <field name="arch" type="xml">
                 <!--Task / SubTask-->
-                <xpath expr="//group[@name='extra_info']" position="after">
+                <xpath expr="//page[@name='extra_info']" position="after">
                     <!--links-->
                     <page name="validate_agreements_client" string="Validar acuerdos con el Cliente / Facturación" attrs="{'invisible':[('service_type', 'not in', 'validar_acuerdo_cliente')]}">
 
