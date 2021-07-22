@@ -17,7 +17,7 @@
                             <group name="group_top">
                                 <group name="group_left" style="width:50%;">
                                     <div>
-                                        
+
                                         <group name="date_group" string="Fechas/Peso">
                                             <field name="valid_agree_estimated_start_date" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
                                             <field name="valid_agree_estimated_end_project_date" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
@@ -35,20 +35,23 @@
                                             <field name="valid_agree_room_location" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
                                             <field name="valid_agree_sales_order_line_amount" />
                                         </group>
-                                        
-                                        
+
+
                                     </div>
                                 </group>
-                                <group name="group_rigth" style="width:50%;">
+                                <group name="group_rigth" style="width:100%;">
                                     <div>
                                         <group name="pay_group" string="Pago Único">
                                             <field name="valid_agree_estimated_payment_date" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
                                         </group>
 
-                                        <group name="pay_group" string="Por Porcentaje (%)">
-                                            <field name="valid_agree_estimated_payment_date" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
+                                        <group name="pay_percentage_group" string="Por Porcentaje (%)">
+                                            <field name="paymentbyprencentage_ids" widget="section_and_note_one2many" mode="tree,kanban"/>
                                         </group>
 
+                                        <group name="part_ayments_group" string="Por partes o cantidades fijas">
+                                            <field name="partpaymentsfixedamounts_ids" widget="section_and_note_one2many" mode="tree,kanban"/>
+                                        </group>
                                     </div>
                                 </group>
                             </group>
@@ -57,6 +60,15 @@
                 </xpath>
             </field>
         </record>
+        <!-- <record id="view_project_sub_task_validate_agreements_client_tree" model="ir.ui.view">
+            <xpath expr="//field[@name='paymentbyprencentage_ids']" position="inside">
+                <tree string="Pagos por Porcentajes">
+                    <field name="percentage_value"/>
+                    <field name="estimated_payment_date"/>
+                    <field name="amount"/>
+                </tree>
+            </xpath>
+        </record> -->
     </data>
 </odoo>
 

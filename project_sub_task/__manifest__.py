@@ -38,5 +38,6 @@
         'views/additional_resources.xml',
         'views/production_pass.xml',
         'views/validate_agreements_client.xml',
+        #'views/payment_by_percentage.xml',
     ],
 }

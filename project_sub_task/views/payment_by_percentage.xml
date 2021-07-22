@@ -2,63 +2,17 @@
 <odoo>
 
     <data>
-    
+
         <record id="view_project_sub_task_payment_by_precentage" model="ir.ui.view">
             <field name="name">view.project.sub.task.payment.by.precentage</field>
             <field name="model">paymentbyprencentage</field>
-            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="inherit_id" ref="project_sub_task.view_project_sub_task_validate_agreements_client" />
             <field name="arch" type="xml">
 
-            <xpath expr="//page[@name='extra_info']" position="after">
-                <page name="validate_agreements_client" string="Validar acuerdos con el Cliente / Facturación" attrs="{'invisible':[('service_type', 'not in', 'validar_acuerdo_cliente')]}">
-                    <div style="width:100%;">
-                            <group name="group_top">
-                                <group name="group_left" style="width:50%;">
-                                    <div>
-                                        
-                                        <group name="date_group" string="Fechas/Peso">
-                                            <field name="valid_agree_estimated_start_date" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
-                                            <field name="valid_agree_estimated_end_project_date" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
-                                            <field name="valid_agree_recurring_billing_start_date" />
-                                            <field name="valid_agree_weight" />
-                                        </group>
-
-                                        <group name="order_group" string="Pedido">
-                                            <field name="valid_agree_order_number" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
-                                            <field name="valid_agree_sales_order_element" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
-                                        </group>
-
-                                        <group name="currency_town_amount_group" string="Moneda/Localidad/Monto">
-                                            <field name="valid_agree_default_currency" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
-                                            <field name="valid_agree_room_location" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
-                                            <field name="valid_agree_sales_order_line_amount" />
-                                        </group>
-                                        
-                                        
-                                    </div>
-                                </group>
-                                <group name="group_rigth" style="width:50%;">
-                                    <div>
-                                        <group name="pay_group" string="Pago Único">
-                                            <field name="valid_agree_estimated_payment_date" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
-                                        </group>
-
-                                        <group name="pay_group" string="Por Porcentaje (%)">
-                                            <field name="valid_agree_estimated_payment_date" attrs="{'required':[('service_type', 'in', 'validar_acuerdo_cliente')]}" />
-                                            <field name="paymentbyprencentage_ids"/>
-                                            <field name="projectsubtask_id"/>
-                                        </group>
-
-                                    </div>
-                                </group>
-                            </group>
-                        </div>
-                </page>
-            </xpath>
-
+                <xpath expr="//field[@name='valid_agree_estimated_payment_date']" position="after">
+                    <!-- <field name="projectsubtask_id"/> -->
+                </xpath>
+            </field>
         </record>
-    
     </data>
-    
-
 </odoo>
