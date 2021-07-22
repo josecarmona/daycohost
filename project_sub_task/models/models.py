@@ -262,7 +262,7 @@ class ProjectSubTask(models.Model):
     valid_agree_default_currency = fields.Selection([('ves','VES'),('usd','USD'),('eur','EUR')],string="Moneda predeterminada")
     valid_agree_room_location = fields.Selection([('ctdc','Caracas'),('ctdv','Valencia')],string="Localidad de la habitación")
     valid_agree_sales_order_line_amount = fields.Float(string="Monto linea del pedido de venta")
-    paymentbyprencentage_ids = fields.One2many(string='Pago por porcentaje (%)', comodel_name='paymentbyprencentage', inverse_name='projectsubtask_id')
+    #paymentbyprencentage_ids = fields.One2many(string='Pago por porcentaje (%)', comodel_name='paymentbyprencentage', inverse_name='projectsubtask_id')
     
     #Validations
     @api.onchange('hostname','clo_hostname','amp_hostname')
